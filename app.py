@@ -208,7 +208,7 @@ elif page == "📊 Analytics":
 # =============================================================================
 elif page == "📝 Study Assistant":
 
-    st.title("🤖 Study Assistant")
+    st.title("📝 Study Assistant")
     st.write("Click the button below to get personalised study recommendations based on your tasks.")
 
     df = get_all_tasks()
