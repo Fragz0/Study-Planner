@@ -99,7 +99,7 @@ if page == "📋 Dashboard":
         st.subheader("🔍 Filter Tasks")
         col_a, col_b = st.columns(2)
         filter_status = col_a.selectbox("Filter by status:", ["All"] + STATUSES)
-        search_text   = col_b.text_input("Search by title:", placeholder="e.g. Chapter 5")
+        search_text   = col_b.text_input("Search by title or subject:", placeholder="e.g. Chapter 5 or Mathematics")
 
         # Apply filters step by step
         filtered = df.copy()
@@ -108,8 +108,10 @@ if page == "📋 Dashboard":
             filtered = filtered[filtered["status"] == filter_status]
 
         if search_text:
-            # str.contains checks whether the search text appears in the title column
-            filtered = filtered[filtered["title"].str.contains(search_text, case=False, na=False)]
+            # Check if the search text appears in the title OR the subject
+            title_match   = filtered["title"].str.contains(search_text, case=False, na=False)
+            subject_match = filtered["subject"].str.contains(search_text, case=False, na=False)
+            filtered = filtered[title_match | subject_match]
 
         st.caption(f"Showing {len(filtered)} task(s)")
         st.divider()
