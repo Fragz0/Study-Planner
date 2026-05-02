@@ -21,7 +21,7 @@ def validate_task(subject, title, due_date):
     if due_date is None:
         errors.append("Due date is required.")
 
-    return errors
+   
 
 
 def days_until_due(due_date_str):
