@@ -208,27 +208,24 @@ elif page == "📊 Analytics":
 # =============================================================================
 elif page == "🤖 AI Assistant":
 
-    st.title("🤖 AI Study Assistant")
-    st.write("Click the button below to get personalised study recommendations from Claude AI.")
+    st.title("🤖 Study Assistant")
+    st.write("Click the button below to get personalised study recommendations based on your tasks.")
 
     df = get_all_tasks()
 
     if df.empty:
-        st.info("Add some tasks first so the AI has something to analyse.")
+        st.info("Add some tasks first so the assistant has something to analyse.")
 
     else:
         active_count = len(df[df["status"] != "Completed"])
-        st.write(f"You have {active_count} active task(s). The AI will read them and suggest a study plan.")
+        st.write(f"You have {active_count} active task(s). The assistant will analyse them and suggest a study plan.")
 
         if st.button("Get Study Recommendations", type="primary"):
 
-            # Show a spinner while we wait for the API response
-            with st.spinner("Asking Claude AI..."):
+            with st.spinner("Analysing your tasks..."):
                 result, error = generate_study_recommendations(df)
 
             if error:
                 st.error(error)
-                if "ANTHROPIC_API_KEY" in error:
-                    st.info("Set the ANTHROPIC_API_KEY environment variable before running the app.")
             else:
                 st.markdown(result)
