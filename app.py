@@ -20,7 +20,7 @@ seed_sample_data()
 st.sidebar.title("📚 Study Planner")
 
 # Radio buttons let the user pick which page to show
-page = st.sidebar.radio("Go to:", ["📋 Dashboard", "➕ Add Task", "📊 Analytics", "🤖 AI Assistant"])
+page = st.sidebar.radio("Go to:", ["📋 Dashboard", "➕ Add Task", "📊 Analytics", "📝 Study Assistant"])
 
 # Show a quick summary count in the sidebar
 all_tasks = get_all_tasks()
@@ -204,9 +204,9 @@ elif page == "📊 Analytics":
 
 
 # =============================================================================
-# PAGE 4 — AI ASSISTANT
+# PAGE 4 — STUDY ASSISTANT
 # =============================================================================
-elif page == "🤖 AI Assistant":
+elif page == "📝 Study Assistant":
 
     st.title("🤖 Study Assistant")
     st.write("Click the button below to get personalised study recommendations based on your tasks.")
