@@ -205,7 +205,8 @@ elif page == "➕ Add Task":
                 st.error(error)
         else:
             try:
-                add_task(subject, title, str(due_date), priority, status, notes or None)
+                # .strip() removes extra spaces, .title() makes it Title Case (e.g. "history" → "History")
+                add_task(subject.strip().title(), title.strip(), str(due_date), priority, status, notes or None)
                 st.success(f"✅ Task '{title}' added successfully!")
             except Exception as e:
                 st.error(f"Could not save task: {e}")
@@ -245,14 +246,16 @@ elif page == "📊 Analytics":
 
         # Chart 3: tasks by subject
         st.subheader("Tasks by Subject")
-        subject_counts = df["subject"].value_counts().reset_index()
+        # Normalize subject names before counting so "history" and "History" merge into one bar
+        subject_counts = df["subject"].str.strip().str.title().value_counts().reset_index()
         subject_counts.columns = ["Subject", "Count"]
         fig3 = px.bar(subject_counts, x="Subject", y="Count", color="Subject")
         st.plotly_chart(fig3, use_container_width=True)
 
         # Full data table at the bottom
         st.subheader("All Tasks")
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        # Drop the internal database id column before displaying
+        st.dataframe(df.drop(columns=["id"]), use_container_width=True, hide_index=True)
 
 
 # =============================================================================
