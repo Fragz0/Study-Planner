@@ -4,7 +4,7 @@ import plotly.express as px
 from datetime import date
 
 # Import functions from our own files
-from database import create_table, seed_sample_data, add_task, get_all_tasks, update_task_status, delete_task
+from database import create_table, add_task, get_all_tasks, update_task_status, delete_task
 from utils import PRIORITIES, STATUSES, validate_task, days_until_due
 from ai_features import generate_study_recommendations
 
@@ -42,7 +42,7 @@ PRIORITY_EMOJI = {
 # Start the database — wrapped in try/except so errors show a friendly message
 try:
     create_table()
-    seed_sample_data()
+
 except Exception as e:
     st.error(f"Could not connect to the database: {e}")
     st.stop()
@@ -264,7 +264,7 @@ elif page == "📊 Analytics":
 elif page == "📝 Study Assistant":
 
     st.title("📝 Study Assistant")
-    st.caption("The app suggests what to study first based on your priorities, deadlines, and task status. No API key needed.")
+    st.caption("The app suggests what to study first based on your priorities, deadlines, and task status.")
 
     try:
         df = get_all_tasks()
